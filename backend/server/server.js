@@ -21,7 +21,7 @@ async function connection(){
         app.listen(3000, (err)=>{
             if(err){
                 console.log(err)
-            }
+            }  
             console.log("Server start at port 3000")
 
         })

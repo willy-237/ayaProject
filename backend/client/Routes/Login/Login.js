@@ -1,40 +1,103 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import  styled  from '@mui/material/styles/styled.js'
+import TextField from "@mui/material/TextField/TextField.js";
+import Button from "@mui/material/Button/Button.js"
+import Avatar from "@mui/material/Avatar/Avatar.js"
 import "./Login.css";
-import email from "./assets/email.jpeg";
-import pass from "./assets/pass.png";
+import auth from "../../Api/Auth/auth-helper.js"
+import { signin } from "../../Api/Auth/api-auth.js";
+import Typography from "@mui/material/Typography/Typography.js";
+import { useNavigate } from "react-router-dom"
 
+
+const css = {
+    avatar: {
+        width: "100px",
+        height: "100px",
+        backgroundColor: "#1976d2",
+        color: "white"
+    }
+}
 
 function Login(){
+    const [login, setLogin] = useState({
+        email: "",
+        password: "",
+        error: "",
+        redirectToHome : false
+    })
+    const navigate = useNavigate()
+
+    const handleChange = name => event => {
+        
+        setLogin({
+            ...login,
+            [name]: event.target.value
+        })
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        
+        const user = {
+            email: login.email || undefined,
+            password: login.password || undefined
+        }
+
+        signin(user).then((data) => {
+            if(data.error){
+                setLogin({
+                    ...login,
+                    error: data.error
+                });
+                setTimeout(()=>{
+                    setLogin({
+                        ...login,
+                        email:"",
+                        password: "",
+                        error: ""
+                    });
+                }, 1600)
+            }else{
+                auth.authenticate(data, () =>{
+                    setLogin({
+                        ...login,
+                        redirectToHome: true
+                    })
+                })
+            }
+        })
+    }
+    
+    useEffect(() =>{
+        if(login.redirectToHome){
+            navigate("/loader")
+        }
+    }, [login.redirectToHome])
+    
+    
     return(
-      <div className="main">
-        <div className="sub-main">
-          <div>
-            <div className="imgs">
-              <div className="container-image">
-                
-              </div>
+        <> 
+        <form className="login" onSubmit={handleSubmit} method="POST"> 
+            <div className="avatar">
+                <Avatar style={css.avatar}>Connexion</Avatar>
             </div>
-            <div>
-              <h1>Login Page</h1>
-              <div>
-                <img src={email} alt="email" className="email"/>
-                <input type="text" placeholder="user name" className="name"/>
-              </div>
-              <div className="second-input">
-                <img src={pass} alt="pass" className="email"/>
-                <input type="password" placeholder="user name" className="name"/>
-              </div>
-              <div className="login-button">
-                <button>Login</button>
-              </div>
-           
-            <p className="link">
-              <a href="#">Forgot password ?</a> Or<a href="#">Sign Up</a>
-            </p>
+
+            <div className="email">
+                <TextField label="email"  id="email" name="email" type="email" value={login.email} onChange={handleChange("email")}/>
             </div>
-          </div>
-        </div>
-      </div>
+
+            <div className="password">
+                 <TextField label="password" id="password" name="password" type="password" value={login.password} onChange={handleChange("password")}/>
+            </div>
+
+            {login.error && (<div><Typography color="error">{login.error}</Typography></div>)}
+
+            <div className="button">
+                <Button variant="contained"  type="submit">Submit</Button>
+            </div>
+        </form>
+        </>
     )
 }
 

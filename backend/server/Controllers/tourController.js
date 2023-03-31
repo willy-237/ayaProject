@@ -66,18 +66,23 @@ const readTour = (req, res) => {
 const updateTour = async (req, res) => {
     try{
         let tour = req.tour;
+        tour.updated = Date.now();
         tour = extend(tour, req.body);
-        await tour.save();
+        await TourModel.findOneAndUpdate(
+            { _id: tour._id },
+            { $set: req.body },
+            { new: true, runValidators: true }
+          )
         return res.json({
             message: "You have successfully updated a tour",
             newTourAdded: tour
         })
     }catch(err){
         return res.status(400).json({
-            error:  errorHandler.getErrorMessage(err)
+            error: errorHandler.getErrorMessage(err)
         })
     }
-}
+};
 
 
 

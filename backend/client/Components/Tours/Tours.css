@@ -1,0 +1,32 @@
+.headerTab{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+tr{
+    cursor: pointer;
+}
+
+td button{
+    background-color: red !important;
+}
+
+.headerTab button{
+    background-color: #86e660;
+}
+
+.headerTab button:hover{
+    background-color: #86e660;
+}
+
+.MuiDialogActions-root button:first-of-type{
+    color: red;
+}
+
+.MuiDialogActions-root button:last-of-type{
+    color: #86e660;
+}
+
+
+
