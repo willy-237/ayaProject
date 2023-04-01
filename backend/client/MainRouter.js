@@ -4,6 +4,7 @@ import Login from "./Routes/Login/Login.js"
 import Loader from "./Routes/Loader/Loader.js";
 import Tours from "./Components/Tours/Tours.js";
 import FormTour from "./Routes/Form/createTour/FormTour.js";
+import Profile from "./Routes/Profile/Profile.js";
 
 const Test = () => {
     return(
@@ -18,6 +19,7 @@ const MainRouter = createBrowserRouter(
            <Route path="/div" Component={Test}/>
            <Route path="/tours" Component={Tours} />
            <Route path="/createtour" Component={FormTour} />
+           <Route path="/profile" Component={Profile} />
         </>
     )
 )

@@ -1,4 +1,4 @@
-const list = async (credentials) => {
+const listUsers = async (credentials) => {
     try{
         let response = await fetch("/api/users/", {
             method: "GET",
@@ -11,3 +11,5 @@ const list = async (credentials) => {
         console.log(err);
     }
 }
+
+export { listUsers }

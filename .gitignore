@@ -1,6 +1,11 @@
-node_modules/
-.babelrc
-nodemon.json
-package-lock.json
-webpack.config.client.js
-webpack.config.server.js
+backend/node_modules/
+backend/.babelrc
+backend/package-lock.json
+backend/webpack.config.client.js
+backend/webpack.config.server.js
+
+frontend/node_modules/
+frontend/.babelrc
+frontend/package-lock.json
+frontend/webpack.config.client.js
+frontend/webpack.config.server.js

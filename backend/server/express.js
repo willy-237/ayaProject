@@ -6,7 +6,7 @@ import helmet from "helmet";
 import cors from "cors";
 import webpackDevMiddleware from "webpack-dev-middleware";
 import WebpackHotMiddleware from "webpack-hot-middleware";
-import config from "../../webpack.config.client.js"
+import config from "../webpack.config.client.js"
 import webpack from "webpack";
 import authRoutes from "./Routes/authRoutes.js"
 import tourRoutes from "./Routes/tourRoutes.js";
@@ -25,7 +25,7 @@ app.use(devMiddleware);
 app.use(WebpackHotMiddleware(compiler))
 
 
-app.use(express.static(path.join(CURRENT_WORKING_DIR, "backend/server/public")));
+app.use(express.static(path.join(CURRENT_WORKING_DIR, "server/public")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());

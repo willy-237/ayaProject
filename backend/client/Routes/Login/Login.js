@@ -71,7 +71,7 @@ function Login(){
     
     useEffect(() =>{
         if(login.redirectToHome){
-            navigate("/loader")
+            navigate("/profile")
         }
     }, [login.redirectToHome])
     
